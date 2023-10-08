@@ -4,12 +4,12 @@ import cvzone
 import numpy as np
 
 
-cap = cv2.VideoCapture('source/carPark.mp4')
+cap = cv2.VideoCapture('source/carParking.mp4')
 
 with open('CarParkPos', 'rb') as f:
     posList = pickle.load(f)
 
-width, height = 107, 48
+width, height = 70, 28
 
 def checkParkingSpace(imgPro):
     spaceCounter = 0
@@ -43,7 +43,7 @@ while True:
     if cap.get(cv2.CAP_PROP_POS_FRAMES) == cap.get(cv2.CAP_PROP_FRAME_COUNT):
         cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
     success,  img = cap.read()
-    imgGray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     imgBlur = cv2.GaussianBlur(imgGray, (3, 3), 1)
     imgThreshold = cv2.adaptiveThreshold(imgBlur,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY_INV,25,16) 
     imgMedian = cv2.medianBlur(imgThreshold,5)
